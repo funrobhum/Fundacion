@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
         selectAmount(customAmount);
         initializePayPal(parseFloat(customAmount));
       } else {
-        alert('Por favor, ingresa un monto válido o selecciona uno de los montos sugeridos.');
+        showDonationErrorModal();
       }
     });
   }
@@ -191,6 +191,78 @@ function sendDonationToServer(details, amount) {
   //   headers: { 'Content-Type': 'application/json' },
   //   body: JSON.stringify(donationData)
   // });
+}
+
+// Función para mostrar modal de error profesional
+function showDonationErrorModal() {
+  // Crear o obtener el modal de error
+  let errorModal = document.getElementById('modal-error-donacion');
+  
+  if (!errorModal) {
+    // Crear el modal si no existe
+    errorModal = document.createElement('div');
+    errorModal.id = 'modal-error-donacion';
+    errorModal.className = 'modal fade';
+    errorModal.setAttribute('tabindex', '-1');
+    errorModal.setAttribute('aria-labelledby', 'modalErrorDonacionLabel');
+    errorModal.setAttribute('aria-hidden', 'true');
+    errorModal.innerHTML = `
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+          <div class="modal-body text-center p-5">
+            <div class="mb-4">
+              <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-warning bg-opacity-10" style="width: 80px; height: 80px;">
+                <i class="bi bi-exclamation-triangle-fill text-warning" style="font-size: 2.5rem;"></i>
+              </div>
+            </div>
+            <h4 class="modal-title fw-bold mb-3" id="modalErrorDonacionLabel">
+              Monto Requerido
+            </h4>
+            <p class="text-muted mb-4 fs-5">
+              Por favor, ingresa un monto válido o selecciona uno de los montos sugeridos para continuar con tu donación.
+            </p>
+            <div class="d-flex gap-2 justify-content-center flex-wrap mb-4">
+              <button class="btn btn-outline-primary amount-btn" data-amount="10">$10</button>
+              <button class="btn btn-outline-primary amount-btn" data-amount="25">$25</button>
+              <button class="btn btn-outline-primary amount-btn" data-amount="50">$50</button>
+              <button class="btn btn-outline-primary amount-btn" data-amount="100">$100</button>
+              <button class="btn btn-outline-primary amount-btn" data-amount="250">$250</button>
+            </div>
+            <button type="button" class="btn btn-primary btn-lg px-5" data-bs-dismiss="modal">
+              <i class="bi bi-check-circle me-2"></i>Entendido
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(errorModal);
+    
+    // Agregar event listener una sola vez usando event delegation
+    errorModal.addEventListener('click', function(e) {
+      if (e.target.closest('.amount-btn')) {
+        const btn = e.target.closest('.amount-btn');
+        const amount = btn.dataset.amount;
+        // Cerrar modal de error
+        const modalInstance = bootstrap.Modal.getInstance(errorModal);
+        if (modalInstance) {
+          modalInstance.hide();
+        }
+        // Seleccionar el monto en el modal principal
+        selectAmount(amount);
+        // Enfocar el input de monto personalizado después de cerrar el modal
+        setTimeout(() => {
+          const customAmountInput = document.getElementById('custom-amount');
+          if (customAmountInput) {
+            customAmountInput.focus();
+          }
+        }, 300);
+      }
+    });
+  }
+  
+  // Mostrar el modal
+  const modal = new bootstrap.Modal(errorModal);
+  modal.show();
 }
 
 // Función para copiar número de cuenta

@@ -1,0 +1,29 @@
+# Archivos y carpetas que NO se deben subir a Netlify
+# Netlify rechaza archivos con '#' en el nombre, como los que están en node_modules
+
+# CRÍTICO: Excluir node_modules (contiene archivos con '#' que causan errores)
+node_modules/
+
+# Archivos de desarrollo y configuración
+.git/
+.vscode/
+.idea/
+*.log
+.DS_Store
+Thumbs.db
+
+# Archivos de desarrollo local (no necesarios en producción)
+src/
+gulpfile.js
+package.json
+package-lock.json
+
+# Archivos de documentación (opcional, pero no necesarios)
+*.md
+!README.md
+
+# Archivos temporales y de desarrollo
+fix-image-urls.js
+update_donaciones_modal.py
+db.json
+

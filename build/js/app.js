@@ -53,8 +53,8 @@ if(modalImagen) {
         const isInEnFolder = window.location.pathname.includes('/en/');
         const basePath = isInEnFolder ? '../build/img/' : './build/img/';
         
-        // Asegurar que el nombre de la carpeta esté en minúsculas
-        const folderLower = folderImagen ? folderImagen.toLowerCase() : '';
+        // Asegurar que el nombre de la carpeta esté en minúsculas y codificar espacios
+        const folderLower = folderImagen ? folderImagen.toLowerCase().replace(/\s/g, '%20') : '';
     
         const imagen = document.createElement('IMG');
         imagen.src = `${basePath}${folderLower}/${rutaImagen}.webp`;
@@ -176,8 +176,9 @@ function printImages(data) {
   data.forEach(image => {
     const  { name, folder } = image;
     
-    // Construir la ruta correcta usando basePath (folder ya está en minúsculas en el JSON)
-    const imageUrl = `${basePath}${folder}/${name}.webp`;
+    // Construir la ruta correcta usando basePath y codificar espacios en el nombre de carpeta
+    const folderEncoded = folder ? folder.replace(/\s/g, '%20') : '';
+    const imageUrl = `${basePath}${folderEncoded}/${name}.webp`;
     
     const li_image = document.createElement("li");
     li_image.classList.add("col-md-6", "col-lg-4", "mb-4");
