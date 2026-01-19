@@ -1,1 +1,3 @@
-Para realizar cambios, puede comunicarse con el administrador para solicitar el manual del programador. 
+El objetivo de este proyecto es actualizar, mantener y mejorar el sitio web de la fundación “Rompiendo Barreras Sin Límites para la Humanidad”. En los últimos años, la fundación ha incrementado significativamente su alcance, llegando a un mayor número de personas y expandiendo sus operaciones a municipios fuera de Santa Ana. Debido a este crecimiento, se hace necesario desarrollar una interfaz moderna, escalable y optimizada, capaz de soportar el aumento del tráfico web y responder a las necesidades futuras de la organización.
+
+El código fuente del sitio web se aloja en este repositorio con el propósito de facilitar su revisión, auditoría, mantenimiento y mejora continua. Los desarrolladores podrán contribuir mediante correcciones, optimizaciones y propuestas de mejora, garantizando así la calidad, seguridad y evolución constante del proyecto.
